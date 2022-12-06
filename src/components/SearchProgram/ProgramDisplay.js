@@ -17,15 +17,15 @@ import { Link as RouterDom } from 'react-router-dom';
 export default function ProgramDisplay(props) {
   return (
     <ScaleFade initialScale={0.9} in={props}>
-      <Card>
-        <CardHeader>
+      <Card shadow="lg">
+        <CardHeader color="blue.900">
           <Heading size="md"> {props.title}</Heading>
           {props.duration && <Text>Duration: {props.duration}</Text>}
         </CardHeader>
-        <CardBody>
+        <CardBody color="blue.900">
           <Text>{props.subtitle}</Text>
         </CardBody>
-        <CardFooter align="center">
+        <CardFooter align="center" color="blue.900">
           <HStack w="100%" justify="space-between">
             <Link as={RouterDom} to={`/programs/${props.uuid}`}>
               <Button>View here</Button>

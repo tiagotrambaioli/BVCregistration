@@ -7,12 +7,17 @@ export default function NavBarItem(props) {
   return (
     <Link as={RouterDom} to={props.to}>
       {!props.icon && (
-        <Button variant={props.variant || 'ghost'} size={props.size || 'md'}>
+        <Button
+          color="blue.900"
+          variant={props.variant || 'ghost'}
+          size={props.size || 'md'}
+        >
           {props.text}
         </Button>
       )}
-      {props.icon == 'IoHome' && (
+      {props.icon === 'IoHome' && (
         <Button
+          color="blue.900"
           leftIcon={<IoHome />}
           variant={props.variant || 'ghost'}
           size={props.size || 'md'}
@@ -21,8 +26,9 @@ export default function NavBarItem(props) {
           {props.text}
         </Button>
       )}
-      {props.icon == 'IoSchool' && (
+      {props.icon === 'IoSchool' && (
         <Button
+          color="blue.900"
           leftIcon={<IoSchool />}
           variant={props.variant || 'ghost'}
           size={props.size || 'md'}
@@ -31,8 +37,9 @@ export default function NavBarItem(props) {
           {props.text}
         </Button>
       )}
-      {props.icon == 'IoBook' && (
+      {props.icon === 'IoBook' && (
         <Button
+          color="blue.900"
           leftIcon={<IoBook />}
           variant={props.variant || 'ghost'}
           size={props.size || 'md'}
@@ -41,8 +48,9 @@ export default function NavBarItem(props) {
           {props.text}
         </Button>
       )}
-      {props.icon == 'IoMail' && (
+      {props.icon === 'IoMail' && (
         <Button
+          color="blue.900"
           leftIcon={<IoMail />}
           variant={props.variant || 'ghost'}
           size={props.size || 'md'}
@@ -51,8 +59,9 @@ export default function NavBarItem(props) {
           {props.text}
         </Button>
       )}
-      {props.icon == 'IoPerson' && (
+      {props.icon === 'IoPerson' && (
         <Button
+          color="blue.900"
           leftIcon={<IoPerson />}
           variant={props.variant || 'ghost'}
           size={props.size || 'md'}

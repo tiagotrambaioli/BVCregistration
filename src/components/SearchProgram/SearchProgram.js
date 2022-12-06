@@ -1,5 +1,9 @@
 import {
   Box,
+  Button,
+  Card,
+  CardBody,
+  HStack,
   Input,
   InputGroup,
   InputLeftElement,
@@ -11,16 +15,25 @@ import React from 'react';
 import { useState } from 'react';
 import { IoSearch } from 'react-icons/io5';
 import { useApiGet } from '../../hooks/useApi';
+import CategoryButton from './CategoryButton';
 import ProgramDisplay from './ProgramDisplay';
 
 export default function SearchProgram() {
   const [search, setSearch] = useState('');
-  const { data: programs, isFetching, error } = useApiGet('/programs', search);
-
-  console.log(programs);
+  const [searchParam, setSearchParam] = useState('Business');
+  const {
+    data: programs,
+    isFetching,
+    error,
+  } = useApiGet('/programs', searchParam);
 
   const handleSearch = e => {
     setSearch(e.target.value);
+    setSearchParam(e.target.value);
+  };
+
+  const handleCategory = e => {
+    setSearchParam(e.target.value);
   };
 
   return (
@@ -37,12 +50,27 @@ export default function SearchProgram() {
         />
       </InputGroup>
 
-      {programs.length > 0 && <Box mt="2">Search results:</Box>}
       {programs.length == 0 && search.length > 0 && (
         <Box mt="2">No results found.</Box>
       )}
 
-      <Stack></Stack>
+      <Stack
+        direction="row"
+        w="80vw"
+        align="center"
+        justify="center"
+        wrap="wrap"
+      >
+        <CategoryButton value="Business" handler={handleCategory} />
+        <CategoryButton value="Technology" handler={handleCategory} />
+        <CategoryButton value="Community Studies" handler={handleCategory} />
+        <CategoryButton value="Health and Wellness" handler={handleCategory} />
+        <CategoryButton
+          value="Careers in Immigrant Advancement"
+          handler={handleCategory}
+        />
+        <CategoryButton value="Academic Upgrading" handler={handleCategory} />
+      </Stack>
       <SimpleGrid
         w="90vw"
         spacing={4}
