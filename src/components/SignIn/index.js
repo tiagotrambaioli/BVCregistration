@@ -1,6 +1,14 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import useAuth from '../../hooks/useAuth';
+
+import axios from '../../api/axios';
 import {
+  useToast,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
   Button,
   Card,
   CardBody,
@@ -15,15 +23,84 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { CheckIcon } from '@chakra-ui/icons';
-import { Link as RouterDom } from 'react-router-dom';
+import { Link as RouterDom, useNavigate, useLocation } from 'react-router-dom';
 
 export default function SignIn() {
+  const { setAuth } = useAuth();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
+  const toast = useToast();
+  const usernameRef = useRef();
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setLoading] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
-  const signInHandler = async user => {
-    setLoading(' ');
+  useEffect(() => {
+    usernameRef.current.focus();
+  }, []);
+
+  useEffect(() => {
+    usernameRef.current.focus();
+  }, []);
+  useEffect(() => {
+    setErrorMsg('');
+  }, [username, password]);
+
+  const signInHandler = async e => {
+    setLoading(true);
+
+    try {
+      const response = await axios.post(
+        '/login',
+        JSON.stringify({ username, password }),
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+
+      const uuid = response?.data?.uuid;
+      const firstName = response?.data?.firstName;
+      const lastName = response?.data?.lastName;
+      const email = response?.data?.email;
+      const phone = response?.data?.phone;
+      const role = response?.data?.role;
+      const accessToken = response?.data?.accessToken;
+      const refreshToken = response?.data?.refreshToken;
+      setAuth({
+        uuid,
+        firstName,
+        lastName,
+        email,
+        phone,
+        role,
+        accessToken,
+        refreshToken,
+      });
+      setUsername('');
+      setPassword('');
+      toast({
+        title: 'You are logged in.',
+        description: `Welcome back ${firstName}.`,
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
+      navigate(from, { replace: true });
+    } catch (error) {
+      setLoading(false);
+      if (!error?.response) {
+        setErrorMsg('No server response.');
+      } else if (error.response?.status === 400) {
+        setErrorMsg('Missing username or password.');
+      } else if (error.response?.status === 401) {
+        setErrorMsg('Not allowed.');
+      } else {
+        setErrorMsg('Login failed.');
+      }
+    }
   };
 
   return (
@@ -43,14 +120,23 @@ export default function SignIn() {
               Sign In to BVC
             </Heading>
 
-            <FormControl id="username" isRequired>
+            {errorMsg && (
+              <Alert status="error">
+                <AlertIcon />
+                <AlertTitle>Error:</AlertTitle>
+                <AlertDescription>{errorMsg}</AlertDescription>
+              </Alert>
+            )}
+
+            <FormControl id="username" isRequired isDisabled={isLoading}>
               <FormLabel>Username</FormLabel>
               <Input
+                ref={usernameRef}
                 value={username}
                 onChange={e => setUsername(e.target.value)}
               />
             </FormControl>
-            <FormControl id="Password" isRequired>
+            <FormControl id="Password" isRequired isDisabled={isLoading}>
               <FormLabel>Password</FormLabel>
               <Input
                 type="password"

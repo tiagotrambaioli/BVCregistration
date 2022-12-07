@@ -2,9 +2,10 @@ import { ColorModeScript } from '@chakra-ui/react';
 import React, { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 import App from './App';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
+import { AuthProvider } from './context/AuthProvider';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
@@ -13,7 +14,11 @@ root.render(
   <StrictMode>
     <ColorModeScript />
     <BrowserRouter>
-      <App />
+      <AuthProvider>
+        <Routes>
+          <Route path="/*" element={<App />} />
+        </Routes>
+      </AuthProvider>
     </BrowserRouter>
   </StrictMode>
 );
