@@ -1,5 +1,6 @@
+import { Box } from '@chakra-ui/react';
 import React from 'react';
 
 export function Programs() {
-  return <div>Programs</div>;
+  return <Box>Programs</Box>;
 }

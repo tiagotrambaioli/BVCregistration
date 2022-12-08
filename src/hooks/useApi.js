@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react';
 import api from '../api/axios';
+import useAuth from './useAuth';
 
 export function useApiGet(url, params = '*') {
-  const len = params.length;
   params = params.trim().replace(' ', '%20');
-  let clean;
+
   const [isFetching, setIsFetching] = useState(false);
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    const len = params.length;
+    let clean;
     if ((len < 3 && params !== '*') || params === '' || params === null) return;
     if (params === '*') {
       clean = url.trim();
@@ -32,16 +34,18 @@ export function useApiGet(url, params = '*') {
         })
         .finally(() => setIsFetching(false));
     }
-  }, [params]);
+  }, [url, params]);
 
   return { data, isFetching, error };
 }
 
-export function useApiPost(url, data, accessToken) {
+export function useApiPost(url, data) {
+  const { accessToken } = useAuth();
   const [response, setResponse] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
   const [error, setError] = useState(null);
   useEffect(() => {
+    setIsFetching(true);
     api
       .post(url, JSON.stringify(data), {
         headers: {
@@ -54,7 +58,7 @@ export function useApiPost(url, data, accessToken) {
       })
       .catch(err => setError(err))
       .finally(() => setIsFetching(false));
-  }, []);
+  }, [url, data, accessToken]);
 
   return { response, isFetching, error };
 }

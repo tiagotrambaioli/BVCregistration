@@ -1,9 +1,5 @@
 import {
   Box,
-  Button,
-  Card,
-  CardBody,
-  HStack,
   Input,
   InputGroup,
   InputLeftElement,
@@ -21,11 +17,7 @@ import ProgramDisplay from './ProgramDisplay';
 export default function SearchProgram() {
   const [search, setSearch] = useState('');
   const [searchParam, setSearchParam] = useState('Business');
-  const {
-    data: programs,
-    isFetching,
-    error,
-  } = useApiGet('/programs', searchParam);
+  const { data: programs } = useApiGet('/programs', searchParam);
 
   const handleSearch = e => {
     setSearch(e.target.value);
@@ -37,7 +29,7 @@ export default function SearchProgram() {
   };
 
   return (
-    <VStack width="100vw" align="center" mt="10">
+    <VStack width="100vw" align="center" my="10">
       <InputGroup w="60vw">
         <InputLeftElement
           pointerEvents="none"
@@ -50,7 +42,7 @@ export default function SearchProgram() {
         />
       </InputGroup>
 
-      {programs.length == 0 && search.length > 0 && (
+      {programs.length === 0 && search.length > 0 && (
         <Box mt="2">No results found.</Box>
       )}
 

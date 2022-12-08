@@ -3,7 +3,6 @@ import {
   Grid,
   GridItem,
   Divider,
-  Box,
   Center,
   Heading,
   Text,
@@ -12,7 +11,6 @@ import {
   Link,
   VStack,
 } from '@chakra-ui/react';
-import Logo from '../../assets/Logo';
 import {
   IoMail,
   IoCall,
@@ -28,7 +26,8 @@ export default function Footer() {
   return (
     <>
       <Grid
-        mt="20"
+        as="footer"
+        mt="auto"
         p="1"
         templateRows="repeat(1, 1fr)"
         templateColumns="repeat(5, 1fr)"
