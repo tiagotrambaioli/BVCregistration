@@ -13,6 +13,7 @@ import Footer from './components/Footer';
 import RequireAuth from './components/RequireAuth';
 import Layout from './components/Layout';
 import Unauthorized from './pages/Unauthorized';
+import ShowProgram from './components/ShowProgram';
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/programs" element={<Programs />} />
-            <Route path=":id" element={<Programs />} />
+            <Route path="/programs/:uuid" element={<ShowProgram />} />
             <Route
               element={<RequireAuth allowedRoles={['admin', 'student']} />}
             >

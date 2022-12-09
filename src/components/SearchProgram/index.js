@@ -14,9 +14,9 @@ import { useApiGet } from '../../hooks/useApi';
 import CategoryButton from './CategoryButton';
 import ProgramDisplay from './ProgramDisplay';
 
-export default function SearchProgram() {
+export default function SearchProgram(props) {
   const [search, setSearch] = useState('');
-  const [searchParam, setSearchParam] = useState('Business');
+  const [searchParam, setSearchParam] = useState(props?.search);
   const { data: programs } = useApiGet('/programs', searchParam);
 
   const handleSearch = e => {

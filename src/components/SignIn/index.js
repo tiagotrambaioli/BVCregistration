@@ -61,29 +61,15 @@ export default function SignIn() {
         }
       );
 
-      const uuid = response?.data?.uuid;
-      const firstName = response?.data?.firstName;
-      const lastName = response?.data?.lastName;
-      const email = response?.data?.email;
-      const phone = response?.data?.phone;
-      const role = response?.data?.role;
-      const accessToken = response?.data?.accessToken;
-      const refreshToken = response?.data?.refreshToken;
+      const user = response?.data;
       setAuth({
-        uuid,
-        firstName,
-        lastName,
-        email,
-        phone,
-        role,
-        accessToken,
-        refreshToken,
+        ...user,
       });
       setUsername('');
       setPassword('');
       toast({
         title: 'You are logged in.',
-        description: `Welcome back ${firstName}.`,
+        description: `Welcome back ${user.firstName}.`,
         status: 'success',
         duration: 5000,
         isClosable: true,
