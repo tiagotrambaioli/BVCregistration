@@ -117,6 +117,7 @@ export default function SignIn() {
             <FormControl id="username" isRequired isDisabled={isLoading}>
               <FormLabel>Username</FormLabel>
               <Input
+                type="text"
                 ref={usernameRef}
                 value={username}
                 onChange={e => setUsername(e.target.value)}

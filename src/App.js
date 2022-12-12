@@ -14,6 +14,8 @@ import RequireAuth from './components/RequireAuth';
 import Layout from './components/Layout';
 import Unauthorized from './pages/Unauthorized';
 import ShowProgram from './components/ShowProgram';
+import UpdateCourse from './pages/Courses/UpdateCourse';
+import CreateCourse from './pages/Courses/CreateCourse';
 
 function App() {
   return (
@@ -25,16 +27,20 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/programs" element={<Programs />} />
             <Route path="/programs/:uuid" element={<ShowProgram />} />
-            <Route
-              element={<RequireAuth allowedRoles={['admin', 'student']} />}
-            >
-              <Route path="/courses" element={<Courses />} />
-              <Route path=":id" element={<Courses />} />
-            </Route>
+            <Route path="/courses" element={<Courses />} />
+            <Route path="/courses/:uuid" element={<Courses />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route
+              element={<RequireAuth allowedRoles={['admin', 'student']} />}
+            >
+              <Route path="/programs/create" element={<ShowProgram />} />
+              <Route path="/programs/update/:uuid" element={<ShowProgram />} />
+              <Route path="/courses/create" element={<CreateCourse />} />
+              <Route path="/courses/update/:code" element={<UpdateCourse />} />
+              <Route path="/profile" element={<Profile />} />
+            </Route>
             <Route path="/unauthorized" element={<Unauthorized />} />
             <Route path="*" element={<Profile />} /> // pending
           </Route>

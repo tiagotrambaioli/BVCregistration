@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import api from '../api/axios';
 import useAuth from './useAuth';
 
-export function useApiGet(url, params = '*') {
+export function useApiGet(url, params = '*', headers = null) {
   params = params.trim().replace(' ', '%20');
 
   const [isFetching, setIsFetching] = useState(false);
@@ -23,7 +23,7 @@ export function useApiGet(url, params = '*') {
     if (clean) {
       setIsFetching(true);
       api
-        .get(clean)
+        .get(clean, headers !== null && { ...headers })
         .then(response => {
           setData(response.data);
         })

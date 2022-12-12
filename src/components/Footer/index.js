@@ -131,7 +131,8 @@ export default function Footer() {
       </Grid>
       <Center w="100vw">
         <Text color="blue.800" fontSize="sm" fontWeight="bold">
-          Copyright 2022. Bow Valley College. All rights reserved.
+          Copyright 2022. Bow Valley College & Tiago Trambaioli. All rights
+          reserved.
         </Text>
       </Center>
     </>

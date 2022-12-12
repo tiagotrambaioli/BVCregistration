@@ -66,7 +66,11 @@ export default function NavBar() {
           <NavBarItem to="/" text="Home" icon="IoHome" />
           <NavBarItem to="/programs" text="Programs" icon="IoSchool" />
           <NavBarItem to="/courses" text="Courses" icon="IoBook" />
-          <NavBarItem to="/contact" text="Contact" icon="IoMail" />
+          <NavBarItem
+            to="/contact"
+            text={auth?.role === 'admin' ? 'Question Forms' : 'Contact'}
+            icon="IoMail"
+          />
         </List>
       </Stack>
       <Stack direction="row" w="20vw" align="center" justify="center">

@@ -150,6 +150,7 @@ export default function SignUp() {
             <FormControl isRequired isReadOnly={isLoading}>
               <FormLabel>First name</FormLabel>
               <Input
+                type="text"
                 ref={firstNameRef}
                 value={firstName}
                 onChange={e => setFirstName(e.target.value)}
@@ -159,6 +160,7 @@ export default function SignUp() {
             <FormControl isRequired isReadOnly={isLoading}>
               <FormLabel>Last name</FormLabel>
               <Input
+                type="text"
                 value={lastName}
                 onChange={e => setLastName(e.target.value)}
               />
@@ -197,6 +199,7 @@ export default function SignUp() {
                 {validUsername && <CheckIcon mx="2" />}
               </FormLabel>
               <Input
+                type="text"
                 value={username}
                 onChange={e => setUsername(e.target.value)}
                 aria-invalid={validUsername ? 'false' : 'true'}

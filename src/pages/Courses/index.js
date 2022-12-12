@@ -1,5 +1,6 @@
 import React from 'react';
+import SearchCourses from '../../components/SearchCourses';
 
 export function Courses() {
-  return <div>Courses</div>;
+  return <SearchCourses search="sodv" />;
 }

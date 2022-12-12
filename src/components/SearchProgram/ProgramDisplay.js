@@ -12,9 +12,11 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import { Link as RouterDom, useLocation } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
 export default function ProgramDisplay(props) {
   const location = useLocation();
+  const { auth } = useAuth();
 
   return (
     <ScaleFade initialScale={0.9} in={props}>
@@ -31,10 +33,17 @@ export default function ProgramDisplay(props) {
             <Link as={RouterDom} to={`/programs/${props.uuid}`}>
               <Button>View here</Button>
             </Link>
+
             {props.deliveryTypes.length > 0 && (
               <Text fontSize="sm">
                 Delivery: {props.deliveryTypes.join(', ')}
               </Text>
+            )}
+
+            {auth?.role === 'admin' && (
+              <Link as={RouterDom} to={`/programs/edit/${props.uuid}`}>
+                <Button colorScheme="red">Edit</Button>
+              </Link>
             )}
           </HStack>
         </CardFooter>
