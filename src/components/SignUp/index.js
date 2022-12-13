@@ -51,7 +51,6 @@ export default function SignUp() {
   const [isLoading, setLoading] = useState(false);
 
   const [errorMsg, setErrorMsg] = useState('');
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     firstNameRef.current.focus();
@@ -61,6 +60,7 @@ export default function SignUp() {
     const result = USERNAME_REGEX.test(username);
 
     setValidUserame(result);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [username]);
 
   useEffect(() => {
@@ -69,6 +69,7 @@ export default function SignUp() {
     setValidPassword(result);
     const match = password === matchPassword;
     setValidMatch(match);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [password, matchPassword]);
 
   useEffect(() => {
@@ -84,6 +85,7 @@ export default function SignUp() {
       return;
     }
     try {
+      // eslint-disable-next-line no-unused-vars
       const response = await axios.post(
         '/users',
         JSON.stringify({
@@ -100,7 +102,6 @@ export default function SignUp() {
         }
       );
 
-      setSuccess(true);
       toast({
         title: 'Account created.',
         description: "We've created your account for you. Please sign in.",

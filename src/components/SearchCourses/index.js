@@ -7,6 +7,7 @@ import {
   Box,
   SimpleGrid,
   useToast,
+  useDisclosure,
   Button,
 } from '@chakra-ui/react';
 import { IoSearch } from 'react-icons/io5';
@@ -21,6 +22,7 @@ export default function SearchCourses(props) {
   const [search, setSearch] = useState('');
   const [searchParam, setSearchParam] = useState(props?.search);
   const { data: courses } = useApiGet('/courses', searchParam);
+  const { onClose } = useDisclosure();
   const { auth } = useAuth();
   const toast = useToast();
   const navigate = useNavigate();
@@ -94,12 +96,7 @@ export default function SearchCourses(props) {
         </Box>
       )}
 
-      <SimpleGrid
-        w="90vw"
-        spacing={4}
-        templateColumns="repeat(auto-fill, minmax(500px, 1fr))"
-        alignItems="center"
-      >
+      <SimpleGrid w="90vw" spacing={4} columns={2} alignItems="center">
         {courses?.map((course, index) => {
           return (
             <CourseDisplay

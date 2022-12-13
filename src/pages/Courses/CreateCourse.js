@@ -17,7 +17,7 @@ import {
 import { Link as RouterDom, useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
 import useAuth from '../../hooks/useAuth';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 export default function CreateCourse() {
   const [courseCode, setCourseCode] = useState(' ');
@@ -32,7 +32,6 @@ export default function CreateCourse() {
   const navigate = useNavigate();
 
   const addOutline = () => {
-    console.log('outline');
     const outLines = [
       {
         academicYear: '',

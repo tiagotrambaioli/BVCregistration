@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import api from '../api/axios';
-import useAuth from './useAuth';
 
 export function useApiGet(url, params = '*', headers = null) {
   params = params.trim().replace(' ', '%20');
@@ -34,31 +33,7 @@ export function useApiGet(url, params = '*', headers = null) {
         })
         .finally(() => setIsFetching(false));
     }
-  }, [url, params]);
+  }, [url, params, headers]);
 
   return { data, isFetching, error };
-}
-
-export function useApiPost(url, data) {
-  const { accessToken } = useAuth();
-  const [response, setResponse] = useState([]);
-  const [isFetching, setIsFetching] = useState(true);
-  const [error, setError] = useState(null);
-  useEffect(() => {
-    setIsFetching(true);
-    api
-      .post(url, JSON.stringify(data), {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then(response => {
-        setResponse(response.data);
-      })
-      .catch(err => setError(err))
-      .finally(() => setIsFetching(false));
-  }, [url, data, accessToken]);
-
-  return { response, isFetching, error };
 }

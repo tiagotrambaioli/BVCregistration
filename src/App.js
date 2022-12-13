@@ -16,6 +16,8 @@ import Unauthorized from './pages/Unauthorized';
 import ShowProgram from './components/ShowProgram';
 import UpdateCourse from './pages/Courses/UpdateCourse';
 import CreateCourse from './pages/Courses/CreateCourse';
+import CreateProgram from './pages/Programs/CreateProgram';
+import UpdateProgram from './pages/Programs/UpdateProgram';
 
 function App() {
   return (
@@ -35,8 +37,11 @@ function App() {
             <Route
               element={<RequireAuth allowedRoles={['admin', 'student']} />}
             >
-              <Route path="/programs/create" element={<ShowProgram />} />
-              <Route path="/programs/update/:uuid" element={<ShowProgram />} />
+              <Route path="/programs/create" element={<CreateProgram />} />
+              <Route
+                path="/programs/update/:uuid"
+                element={<UpdateProgram />}
+              />
               <Route path="/courses/create" element={<CreateCourse />} />
               <Route path="/courses/update/:code" element={<UpdateCourse />} />
               <Route path="/profile" element={<Profile />} />

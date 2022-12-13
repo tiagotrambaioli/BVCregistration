@@ -19,11 +19,13 @@ import {
   AlertIcon,
   AlertTitle,
   AlertDescription,
+  SimpleGrid,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
+import { useApiGet } from '../../hooks/useApi';
 import useAuth from '../../hooks/useAuth';
 
 export default function ShowProgram() {
@@ -33,6 +35,9 @@ export default function ShowProgram() {
   const { uuid } = useParams();
   const toast = useToast();
   const [data, setData] = useState();
+  const { data: students } = useApiGet('/programs/students', uuid, {
+    headers: { authorization: `Bearer ${auth.accessToken}` },
+  });
 
   const handleProgram = async e => {
     if (!auth?.uuid) {
@@ -307,7 +312,7 @@ export default function ShowProgram() {
                             )}
                             <Text>Term: {term.term}</Text>
                             <Heading as="h3" size="sm" flex="1">
-                              {term.courseCode} - {term.courseTitle}
+                              {term.courseCode} - {term.courseName}
                             </Heading>
                             {term?.credits && (
                               <Text>Credits: {term.credits}</Text>
@@ -409,6 +414,28 @@ export default function ShowProgram() {
               )}
             </Accordion>
           </VStack>
+        )}
+        {auth?.role === 'admin' && (
+          <SimpleGrid
+            columns={2}
+            spacing={5}
+            w="100%"
+            alignContent="center"
+            justifyItems="center"
+          >
+            <Heading size="md" gridColumn="span 2">
+              Students enrolled
+            </Heading>
+            {students?.map((student, index) => {
+              return (
+                <Text key={index} shadow="sm">
+                  <strong>Name: </strong>
+                  {student.firstName} {student.lastName}
+                  <strong> Email:</strong> {student.email}
+                </Text>
+              );
+            })}
+          </SimpleGrid>
         )}
       </VStack>
     </>

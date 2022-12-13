@@ -1,13 +1,12 @@
 import { Accordion, Heading, VStack } from '@chakra-ui/react';
 import React from 'react';
-import { useState } from 'react';
 import { useApiGet } from '../../hooks/useApi';
 import useAuth from '../../hooks/useAuth';
 import FormItem from './FormItem';
 
 export default function ViewForms() {
   const { auth } = useAuth();
-  const { data: forms, error } = useApiGet('/questionforms', '*', {
+  const { data: forms } = useApiGet('/questionforms', '*', {
     headers: {
       authorization: `Bearer ${auth.accessToken}`,
       'Content-Type': 'application/json',
