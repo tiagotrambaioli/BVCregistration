@@ -1,11 +1,11 @@
 import BannerFullWidth from './Banner/BannerFullWidth';
-import SearchProgram from '../../components/SearchProgram';
+import Why from './Why/Why';
 
 export function Home() {
   return (
     <>
       <BannerFullWidth />
-      <SearchProgram search="business" />
+      <Why />
     </>
   );
 }
