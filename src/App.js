@@ -47,7 +47,7 @@ function App() {
               <Route path="/profile" element={<Profile />} />
             </Route>
             <Route path="/unauthorized" element={<Unauthorized />} />
-            <Route path="*" element={<Profile />} /> // pending
+            <Route path="*" element={<Home />} />
           </Route>
         </Routes>
         <Footer />
